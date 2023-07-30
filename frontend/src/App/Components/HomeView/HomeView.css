@@ -1,0 +1,33 @@
+.baseview{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #fafafa;
+}
+
+.contentview{
+    position: relative;
+    overflow: hidden;
+    overflow-y: scroll;
+    margin-top: 2px;
+    height: calc(100% - 2px);
+    display: flex;
+    flex-direction: column; 
+    background-color: #ffffff;
+    /* box-shadow: 0 0 1px rgba(0,0,0,0.12), 0 0 1px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1); */
+}
+
+.contentview::-webkit-scrollbar {
+    display: none;
+}
+
+
+.contentview .welcome-text{
+    margin: auto;
+    text-align: center;
+    font-size: 34px;
+    font-family: 'Poppins', 'sans-serif';
+    color: rgb(10, 10, 58);
+    text-shadow: 0 0 1px #292828;
+}

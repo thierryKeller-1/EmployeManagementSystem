@@ -1,0 +1,63 @@
+.data-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.panel-left{
+    width: 45%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-shrink: initial;
+}
+
+.data-row{
+    margin-left: 40px;
+    margin-bottom: 20px;
+    width: 50%;
+}
+
+.data-row-max{
+    width: 100%;
+}
+
+.panel-right{
+    width: 45%;
+}
+
+.data-row .data-label{
+    font-size: 20px;
+    color: #ababab;
+    margin-bottom: 10px;
+}
+
+.avantages{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    justify-content: space-between;
+}
+
+.av-item{
+    display: flex;
+    flex-direction: row;
+}
+
+.av-item svg{
+    font-size: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.av-item svg.unchecked{
+    color: rgb(210, 210, 210);
+}
+
+.av-item svg.checked{
+    color: rgb(10, 10, 58);
+}

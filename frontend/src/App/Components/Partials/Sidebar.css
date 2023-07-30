@@ -1,0 +1,134 @@
+.sidebar{
+    width: 30vw;
+    /* width: 90px; */
+    max-width: 360px;
+    height: 100vh; 
+    background-color: rgb(10, 10, 58); 
+    box-shadow: 0 0 1px rgba(0,0,0,0.12), 0 0 1px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    position: relative;
+}
+
+.logo-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content:space-between;
+}
+
+.logo-container .logo{
+    width: 80%;
+    height: 110px;
+    justify-content: flex-start;
+}
+
+.logo-container .logo img{
+    width: 100%;
+    object-fit:fill;
+    height: 108px;
+}
+
+.logo-container .menu{
+    width: 20%;
+    height: 108px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    background-color: #ffffff;
+}
+
+.logo-container .menu svg{
+    font-weight: 600;
+    font-size: 35px;
+    align-self: center;
+    color: rgb(10, 10, 58);;
+    cursor: pointer;
+}
+
+.app-menu{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.menu-item{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 60px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.menu-item{
+    text-decoration: none;
+}
+
+.menu-item:hover{
+    background-color: white;
+    border-radius: 5px;
+}
+
+.menu-item.active{
+    background-color: white;
+    border-radius: 5px;
+    border-bottom: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 1px solid rgb(23, 24, 39);
+}
+
+.menu-item .left-icon{
+    width: 80px;
+    /* margin-right: 10px; */
+    color: #ffffff;
+    margin-top:15px;
+    font-size: 25px;
+}
+
+.menu-item:hover .left-icon{
+    color: rgb(7, 7, 96);
+    font-weight: 600;
+    text-shadow: 0 0 1px #292828;
+    transition: all 0.1s;
+}
+
+.menu-item.active .left-icon{
+    width: 90px;
+    color: rgb(7, 7, 96);
+    margin-top:15px;
+    font-size: 25px;
+    font-weight: 600;
+    text-shadow: 0 0 1px #292828;
+}
+
+
+.menu-item span{
+    width: calc(100% - 80px);
+    font-family: 'Poppins';
+    color: #ffffff;
+    font-size: 25px;
+    text-align: start ;
+    line-height: 60px;
+}
+
+.menu-item:hover span{
+    color: rgb(7, 7, 96);
+    font-weight: 600;
+    text-shadow: 0 0 1px #292828;
+    transition: all 0.1s;
+}
+
+.menu-item.active span{
+    width: calc(100% - 60px);
+    font-family: 'Poppins';
+    color: rgb(7, 7, 96);
+    font-size: 25px;
+    line-height: 60px;
+    font-weight: 600;
+    text-shadow: 0 0 1px #292828;
+}
+
