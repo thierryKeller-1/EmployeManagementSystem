@@ -11,7 +11,7 @@ export const employeApiSlice = apiSlice.injectEndpoints({
             })
         }),
         getEmployeDetail: builder.query({
-            query: (id) => ({
+            query: id => ({
                 url: `${base_api_url}/detail/${id}/`,
                 methode: 'GET'
             })

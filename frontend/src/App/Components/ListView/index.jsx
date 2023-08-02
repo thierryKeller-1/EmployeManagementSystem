@@ -5,17 +5,24 @@ import { Header, Sidebar } from '../Partials'
 import { Link, useNavigate } from 'react-router-dom'
 import Swall from 'sweetalert2'
 import { FaTrashAlt, FaEdit, FaListAlt, FaPlusCircle } from 'react-icons/fa'
-import { useGetEmployeListQuery, useDeleteEmployeeMutation, useNewEmployeeMutation } from '../../Features/api/employeApiSlice'
+import { 
+  useGetEmployeListQuery, 
+  useDeleteEmployeeMutation, 
+  useNewEmployeeMutation,
+  useGetEmployeDetailQuery } from '../../Features/api/employeApiSlice'
 import toast, { Toaster } from 'react-hot-toast';
 import MaterialReactTable from 'material-react-table';
 import { useDispatch } from 'react-redux'
 import { useFormik } from 'formik';
 import { BiRefresh } from 'react-icons/bi'
+import { employeApiSlice } from '../../Features/api/employeApiSlice'
 
 
-const ListView = ({ title }) => {
+function ListView ({ title }) {
 
   useSetTitle(title)
+
+  const dispatch = useDispatch()
 
   const {
     data: employes,
@@ -24,6 +31,7 @@ const ListView = ({ title }) => {
     isError: isFetchingAllEmployeError,
     refetch: refetchAllEmployes
   } = useGetEmployeListQuery()
+
 
   const [
     deleteEmploye,
@@ -110,6 +118,16 @@ const ListView = ({ title }) => {
     })
   }
 
+  const handleEdit = (id) => {
+    console.log(id)
+  }
+
+  const handleDetail = (id) => {
+    console.log(id)
+    const { currentData, isFetching, isError } = employeApiSlice.endpoints.getEmployeDetail.useLazyQuery(id)
+    console.log(currentData)
+  }
+
   useEffect(() => {
     refetchAllEmployes()
   }, [employes, refetchAllEmployes])
@@ -144,10 +162,6 @@ const ListView = ({ title }) => {
     [],
   );
 
-  const handlers = {
-    handleDelete
-  }
-
   const modalRef = useRef()
 
   const dispalyModal = () => {
@@ -158,45 +172,9 @@ const ListView = ({ title }) => {
     modalRef.current.classList.remove('show-modal')
   }
 
-  return (
-    <Fragment>
-      <Sidebar active={'employee'} />
-      <section className='baseview'>
-        <Header />
-        <div className="contentview">
-          <div className='table-container'>
-            <div className="table-title-container">
-              <h4 className='table-title'>Employe List</h4>
-            </div>
-            {isFetchingAllEmployeLoading && <div> loading...</div>}
-            {isFetchingAllEmployeError && <div> Failed to fetch data !</div>}
-            {isFetchingAllEmployeSuccess && <MaterialReactTable columns={columns} data={employes ? employes : []}
-              enableColumnActions
-              enableRowActions
-              positionActionsColumn="last"
-              enableRowSelection
-              getRowId={(row) => row.id}
-              onRowSelectionChange={setRowSelection}
-              state={{ rowSelection }}
-              renderTopToolbarCustomActions={() => (
-                <button className="addnewEmploye" onClick={() => dispalyModal()}><FaPlusCircle /></button>
-              )}
-              muiTableBodyRowProps={({ row }) => ({
-                onClick: row.getToggleSelectedHandler(),
-                sx: { cursor: 'pointer' },
-              })}
-              renderRowActions={({ row }) => (
-                <div className='btnOptions'>
-                  <button className='green' onClick={() => handlers.handleDetail(row.getValue('id'))}><FaListAlt /></button>
-                  <button className='orange' onClick={() => handlers.handleEdit(row.getValue('id'))}><FaEdit /></button>
-                  <button className='red' onClick={() => handlers.handleDelete(row.getValue('id'))}><FaTrashAlt /></button>
-                </div>
-              )} />}
-            {isFetchingAllEmployeError && <div style={{ textAlign: 'center' }}>Error has occured</div>}
-            <Toaster position='top-right' toastOptions={{ duration: 2800, style: { background: '#ffffffff', color: 'black', fontWeight: '600', padding: '20px 50px 20px 50px', fontSize: '18px' } }} />
-          </div>
-        </div>
-        <div className="modal" ref={modalRef}>
+  const FormAdd = () => {
+    return(
+      <div className="modal" ref={modalRef}>
           <form className="modal-content" autoComplete='off' onSubmit={formikCreate.handleSubmit}>
             <span className="close-button" onClick={() => hideModal()}>&times;</span>
             <br />
@@ -296,6 +274,48 @@ const ListView = ({ title }) => {
             </div>
           </form>
         </div>
+    )
+  }
+
+  return (
+    <Fragment>
+      <Sidebar active={'employee'} />
+      <section className='baseview'>
+        <Header />
+        <div className="contentview">
+          <div className='table-container'>
+            <div className="table-title-container">
+              <h4 className='table-title'>Employe List</h4>
+            </div>
+            {isFetchingAllEmployeLoading && <div> loading...</div>}
+            {isFetchingAllEmployeError && <div> Failed to fetch data !</div>}
+            {isFetchingAllEmployeSuccess && <MaterialReactTable columns={columns} data={employes ? employes : []}
+              enableColumnActions
+              enableRowActions
+              positionActionsColumn="last"
+              enableRowSelection
+              getRowId={(row) => row.id}
+              onRowSelectionChange={setRowSelection}
+              state={{ rowSelection }}
+              renderTopToolbarCustomActions={() => (
+                <button className="addnewEmploye" onClick={() => dispalyModal()}><FaPlusCircle /></button>
+              )}
+              muiTableBodyRowProps={({ row }) => ({
+                onClick: row.getToggleSelectedHandler(),
+                sx: { cursor: 'pointer' },
+              })}
+              renderRowActions={({ row }) => (
+                <div className='btnOptions'>
+                  <button className='green' onClick={() => handleDetail(row.getValue('id'))}><FaListAlt /></button>
+                  <button className='orange' onClick={() => handleEdit(row.getValue('id'))}><FaEdit /></button>
+                  <button className='red' onClick={() => handleDelete(row.getValue('id'))}><FaTrashAlt /></button>
+                </div>
+              )} />}
+            {isFetchingAllEmployeError && <div style={{ textAlign: 'center' }}>Error has occured</div>}
+            <Toaster position='top-right' toastOptions={{ duration: 2800, style: { background: '#ffffffff', color: 'black', fontWeight: '600', padding: '20px 50px 20px 50px', fontSize: '18px' } }} />
+          </div>
+        </div>
+        <FormAdd />
       </section>
     </Fragment>
   )
