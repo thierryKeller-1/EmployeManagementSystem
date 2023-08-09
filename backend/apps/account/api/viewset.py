@@ -25,7 +25,6 @@ class AccountViewSet(ViewSet):
     
     def create(self, request, *args, **kwargs):
         serializer = EmployeSerializer(data=request.data)
-        print(serializer)
         if serializer.is_valid():
             serializer.save()
             return Response(data=serializer.data, status=status.HTTP_201_CREATED)
